@@ -15,7 +15,7 @@ const createUserSchema = joi.object().keys({
   password: joi.string().min(6).max(18).required(),
 });
 
-const deleteUserSchema = joi.object()
+//const deleteUserSchema = joi.object()
 
 module.exports = {
     login: async (req, res) => {
@@ -65,11 +65,11 @@ createUser: async (req, res) => {
 
 deleteUser: async (req, res) => {
   try {
-    const validate = await deleteUserSchema.validateAsync(req.query);
+    //const validate = await deleteUserSchema.validateAsync(req.query);
     console.log(req.query);
     return res.send({
       message: "Delete user Api",
-      data: validate,
+      //data: req.query
     });
   } catch (error) {
     return res.status(400).send({
