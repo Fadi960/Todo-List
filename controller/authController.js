@@ -65,8 +65,8 @@ createUser: async (req, res) => {
 
 deleteUser: async (req, res) => {
   try {
-    const validate = await deleteUserSchema.validateAsync(req.body);
-    console.log(req.body);
+    const validate = await deleteUserSchema.validateAsync(req.query);
+    console.log(req.query);
     return res.send({
       message: "Delete user Api",
       data: validate,
