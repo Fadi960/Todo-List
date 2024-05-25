@@ -1,5 +1,5 @@
 const { models } = require("./index");
-const { createUser } = require("../controller/userController");
+const { createUser,getAllUsers } = require("../controller/userController");
 const { create } = require("./definitions/users");
 const { response } = require("../app");
 
@@ -15,5 +15,22 @@ module.exports = {
                 error: error,
             };
         }
-    }
+    },
+
+    getAllUsers : async()=>{
+        try{
+            const users = await models.users.findAll({
+                attributes: {
+                    exclude: ["password"],
+                }
+            });
+            return{
+                response: users,
+            };
+        } catch (error) {
+            return {
+                error: error,
+            };
+        }
+    },
 }
