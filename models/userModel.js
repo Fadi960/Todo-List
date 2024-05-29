@@ -1,7 +1,4 @@
 const { models } = require("./index");
-const { createUser,getAllUsers } = require("../controller/userController");
-const { create } = require("./definitions/users");
-const { response } = require("../app");
 
 module.exports = {
     createUser : async(body) => {
@@ -33,4 +30,40 @@ module.exports = {
             };
         }
     },
-}
+
+    deleteUser: async (userId) => {
+        try{
+            const deleteUser = await models.users.destroy({ 
+                where: {
+                    userId: userId,
+                },
+            });
+
+            return {
+                response: deleteUser,
+            };
+        } catch (error) {
+            return {
+                error: error,
+            };
+        }
+    },
+    updateUser: async ({ userId, ...body }) => {
+        try {
+            console.log(userId,body);
+            const updateUser = await models.users.update({ ...body},{
+                where: {
+                    userId: userId,
+            },
+            })
+            return {
+                response: updateUser,
+            };
+        } catch (error) {
+            console.log("error from model",error);
+            return {
+                error: error,
+            };
+        }
+    },
+};
