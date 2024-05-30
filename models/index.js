@@ -2,8 +2,9 @@ const sequelize = require("../bin/dbConnection");
 
 const users = require("./definitions/users");
 const tasks = require("./definitions/tasks");
+const sessions = require("./definitions/session");
 
-const models = { users, tasks };
+const models = { users, tasks, sessions };
 
 // relations
 users.hasMany( tasks, {foreignKey: "userId"});
