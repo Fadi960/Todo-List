@@ -1,9 +1,35 @@
 const { models } = require("./index");
 
 module.exports = {
+    findByUserName : async(userName) => {
+        try{
+            const user = await models.users.findOne({where:{ userName: userName}});
+            return{
+                response: user,
+            }
+        }catch(error){
+          console.log("error from model",error);
+            return{
+                error: error,
+            };
+        }
+    },
+
     createUser : async(body) => {
         try{
             const user = await models.users.create({...body});
+            return{
+                response: user,
+            }
+        }catch(error){
+            return{
+                error: error,
+            };
+        }
+    },
+    getUser : async(body) => {
+        try{
+            const user = await models.users.findOne({...body});
             return{
                 response: user,
             }

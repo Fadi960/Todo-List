@@ -2,11 +2,12 @@ const userModel = require("../models/userModel");
 const { hash } = require("bcryptjs");
 const { v4: uuid } = require("uuid");
 const { 
-        createUser,
+    getUser
+        /*createUser,
         getAllUsers,
         deleteUser,
-        updateUser 
-    } = require("../controller/userController");
+        updateUser*/
+    } = require("../controller/authController");
 
 module.exports = {
     createUser: async (body) => {
@@ -15,6 +16,29 @@ module.exports = {
             body.userId = uuid();
 
             const user = await userModel.createUser(body);
+
+            if (user.error) {
+                return {
+                    error: user.error,
+                };
+            }
+            delete user.response.dataValues.password;
+            return {
+                response: user.response,
+            };
+        } catch (error) {
+            return {
+                error: error,
+            };
+        }
+    },
+    getUser: async (username) => {
+        try {
+            body.password = await hash(body.password, 10);
+            body.userId = uuid();
+
+
+            const user = await userModel.getUser(body);
 
             if (user.error) {
                 return {
